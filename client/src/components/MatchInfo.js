@@ -23,12 +23,10 @@ class MatchInfo extends Component {
           participants
         );
         const gameDurationInMinutes = res.data.gameDuration / 60;
-        setTimeout(() => {
-          this.setState({
-            currentPlayerStats: currentPlayerStats,
-            gameDurationInMinutes: gameDurationInMinutes.toFixed(1).toString()
-          });
-        }, 500);
+        this.setState({
+          currentPlayerStats: currentPlayerStats,
+          gameDurationInMinutes: gameDurationInMinutes.toFixed(1).toString()
+        });
       })
       .catch(error => {
         console.log('error: ', error);
@@ -60,6 +58,7 @@ class MatchInfo extends Component {
   };
 
   renderSummonerSpellsImages = () => {
+    alert(this.state.gameDurationInMinutes);
     if (!this.state.currentPlayerStats) return null;
     const { spell1Id, spell2Id } = this.state.currentPlayerStats;
     const summonerSpellList = summonerSpells.data;
