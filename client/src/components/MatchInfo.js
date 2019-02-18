@@ -23,10 +23,12 @@ class MatchInfo extends Component {
           participants
         );
         const gameDurationInMinutes = res.data.gameDuration / 60;
-        this.setState({
-          currentPlayerStats: currentPlayerStats,
-          gameDurationInMinutes: gameDurationInMinutes.toFixed(1).toString()
-        });
+        setTimeout(() => {
+          this.setState({
+            currentPlayerStats: currentPlayerStats,
+            gameDurationInMinutes: gameDurationInMinutes.toFixed(1).toString()
+          });
+        }, 500);
       })
       .catch(error => {
         console.log('error: ', error);
