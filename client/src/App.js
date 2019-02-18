@@ -39,7 +39,6 @@ class App extends Component {
         <p>Previous matches for {this.state.currentSummoner}</p>
         {this.state.matches.map(match => (
           <MatchInfo
-            key={match.gameId}
             gameId={match.gameId}
             championId={match.championId}
             summoner={this.state.currentSummoner}
