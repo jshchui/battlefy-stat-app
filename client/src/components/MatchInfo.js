@@ -31,7 +31,7 @@ class MatchInfo extends Component {
         });
       })
       .catch(error => {
-        alert('error: ', error);
+        alert(error);
         console.log('error: ', error);
       });
   }
