@@ -13,6 +13,7 @@ class MatchInfo extends Component {
   };
 
   componentDidMount() {
+    alert('mounted');
     axios
       .get(`/getMatch/${this.props.gameId}`)
       .then(res => {
@@ -22,6 +23,7 @@ class MatchInfo extends Component {
           participantIdentities,
           participants
         );
+        alert(res.data.gameDuration);
         const gameDurationInMinutes = res.data.gameDuration / 60;
         this.setState({
           currentPlayerStats: currentPlayerStats,
@@ -29,6 +31,7 @@ class MatchInfo extends Component {
         });
       })
       .catch(error => {
+        alert('error: ', error);
         console.log('error: ', error);
       });
   }
@@ -58,7 +61,6 @@ class MatchInfo extends Component {
   };
 
   renderSummonerSpellsImages = () => {
-    alert(this.state.gameDurationInMinutes);
     if (!this.state.currentPlayerStats) return null;
     const { spell1Id, spell2Id } = this.state.currentPlayerStats;
     const summonerSpellList = summonerSpells.data;
