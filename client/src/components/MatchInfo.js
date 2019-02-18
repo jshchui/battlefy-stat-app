@@ -22,8 +22,8 @@ class MatchInfo extends Component {
           participantIdentities,
           participants
         );
-        alert(participants);
-        alert(participantIdentities);
+        alert(participantIdentities[0].participantId);
+        alert(participantIdentities[0].teamId);
         const gameDurationInMinutes = res.data.gameDuration / 60;
         this.setState({
           currentPlayerStats: currentPlayerStats,
