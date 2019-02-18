@@ -46,30 +46,15 @@ class MatchInfo extends Component {
   };
 
   getPlayerStats = (playerIdentities, participants) => {
-    console.log('playerIdentities: ', playerIdentities);
-    console.log('participants: ', participants);
-    const currentPlayerIdentity = playerIdentities.find(participant => {
-      console.log(
-        'participant.player.summonerName: ',
-        participant.player.summonerName
-      );
-      console.log('this.props.summoner: ', this.props.summoner);
-
-      return (
+    const currentPlayerId = playerIdentities.find(
+      participant =>
         participant.player.summonerName.toLowerCase() ===
         this.props.summoner.toLowerCase()
-      );
-    });
+    ).participantId;
 
-    console.log('currentPlayerIdentity: ', currentPlayerIdentity);
-
-    const currentPlayerId =
-      currentPlayerIdentity && currentPlayerIdentity.participantId;
-
-    const currentPlayerStats = participants.find(participant => {
-      const participantId = participant && participant.participantId;
-      return participantId === currentPlayerId;
-    });
+    const currentPlayerStats = participants.find(
+      participant => participant.participantId === currentPlayerId
+    );
 
     return currentPlayerStats;
   };
