@@ -13,7 +13,6 @@ class MatchInfo extends Component {
   };
 
   componentDidMount() {
-    alert('mounted');
     axios
       .get(`/getMatch/${this.props.gameId}`)
       .then(res => {
@@ -23,7 +22,6 @@ class MatchInfo extends Component {
           participantIdentities,
           participants
         );
-        alert(res.data.gameDuration);
         const gameDurationInMinutes = res.data.gameDuration / 60;
         this.setState({
           currentPlayerStats: currentPlayerStats,
@@ -48,14 +46,18 @@ class MatchInfo extends Component {
   };
 
   getPlayerStats = (playerIdentities, participants) => {
-    const currentPlayerId = playerIdentities.find(
+    const currentPlayerIdentity = playerIdentities.find(
       participant =>
         participant.player.summonerName.toLowerCase() === this.props.summoner
-    ).participantId;
-
-    const currentPlayerStats = participants.find(
-      participant => participant.participantId === currentPlayerId
     );
+
+    const currentPlayerId =
+      currentPlayerIdentity && currentPlayerIdentity.participantId;
+
+    const currentPlayerStats = participants.find(participant => {
+      const participantId = participant && participant.participantId;
+      return participantId === currentPlayerId;
+    });
 
     return currentPlayerStats;
   };
