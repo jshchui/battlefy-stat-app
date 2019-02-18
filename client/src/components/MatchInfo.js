@@ -38,7 +38,10 @@ class MatchInfo extends Component {
       champ => champ.key === championId.toString()
     );
 
-    return currentChamp && currentChamp.name;
+    return {
+      name: currentChamp.name,
+      image: currentChamp.image.full
+    };
   };
 
   getPlayerStats = (playerIdentities, participants) => {
@@ -187,7 +190,9 @@ class MatchInfo extends Component {
     const kills = stats && stats.kills.toString();
     const deaths = stats && stats.deaths.toString();
     const assists = stats && stats.assists.toString();
-    const kda = ((kills + assists) / deaths).toString();
+    const kda = ((parseInt(kills) + parseInt(assists)) / parseInt(deaths))
+      .toFixed(1)
+      .toString();
 
     const level = stats && stats.champLevel.toString();
     const creepScore = stats && stats.totalMinionsKilled.toString();
@@ -202,7 +207,7 @@ class MatchInfo extends Component {
           <img
             className="profile__champion"
             alt="champion"
-            src={`../assets/champion/${playerChamp}.png`}
+            src={`../assets/champion/${playerChamp.image}`}
           />
           {this.renderSummonerSpellsImages()}
         </div>
@@ -211,7 +216,7 @@ class MatchInfo extends Component {
           <p className={outcome ? 'victory__text' : 'defeat__text'}>
             {outcome ? 'Victory' : 'Defeat'}
           </p>
-          <p>{playerChamp}</p>
+          <p>{playerChamp.name}</p>
           <p>
             {kills} / {deaths} / {assists}
           </p>

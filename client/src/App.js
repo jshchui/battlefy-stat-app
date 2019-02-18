@@ -5,14 +5,15 @@ import MatchInfo from './components/MatchInfo';
 
 class App extends Component {
   state = {
-    summoner: '',
-    matches: [],
+    summonerInput: '',
+    currentSummoner: '',
+    matches: null,
     loading: false
   };
 
   handleChange = e => {
     this.setState({
-      summoner: e.target.value
+      summonerInput: e.target.value
     });
   };
 
@@ -20,42 +21,47 @@ class App extends Component {
     e.preventDefault();
     this.setState({ loading: true });
 
-    axios.get(`/getMatchlist/${this.state.summoner}`).then(res => {
+    axios.get(`/getMatchlist/${this.state.summonerInput}`).then(res => {
       this.setState({
         matches: res.data,
-        loading: false
+        loading: false,
+        currentSummoner: this.state.summonerInput
       });
     });
+  };
+
+  renderMatches = () => {
+    if (!this.state.matches) return null;
+    return (
+      <div>
+        <p>Previous matches for {this.state.currentSummoner}</p>
+        {this.state.matches.map(match => (
+          <MatchInfo
+            key={match.gameId}
+            gameId={match.gameId}
+            championId={match.championId}
+            summoner={this.state.currentSummoner}
+          />
+        ))}
+      </div>
+    );
   };
 
   render() {
     return (
       <div className="App">
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            <input
-              className="input-field"
-              type="text"
-              value={this.state.summoner}
-              onChange={this.handleChange}
-              placeholder="Type and enter summoner name here"
-            />
-          </label>
-          {/* <input type="submit" value="Submit" /> */}
+        <form className="input-form" onSubmit={this.handleSubmit}>
+          <input
+            className="input-field"
+            type="text"
+            value={this.state.summonerInput}
+            onChange={this.handleChange}
+            placeholder="Type and enter summoner name here"
+          />
+          <input className="input-submit" type="submit" value="Submit" />
         </form>
         {this.state.loading ? <p>Getting Matches...</p> : null}
-        {this.state.matches
-          ? this.state.matches.map(match => {
-              return (
-                <MatchInfo
-                  key={match.gameId}
-                  gameId={match.gameId}
-                  championId={match.championId}
-                  summoner={this.state.summoner}
-                />
-              );
-            })
-          : null}
+        {this.renderMatches()}
       </div>
     );
   }
