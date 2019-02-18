@@ -31,6 +31,7 @@ class App extends Component {
   };
 
   renderMatches = () => {
+    if (this.state.matches === '') return <p>There was a problem :(</p>;
     if (!this.state.matches) return null;
     return (
       <div>
