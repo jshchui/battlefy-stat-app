@@ -52,7 +52,7 @@ const fetchMatchlist = async (api_key, summonerName) => {
     const accountId = userData.data.accountId;
 
     const matchListData = await axios.get(
-      `https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}?endIndex=1&beginIndex=0&api_key=${api_key}`
+      `https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}?endIndex=5&beginIndex=0&api_key=${api_key}`
     );
     const matches =
       matchListData && matchListData.data && matchListData.data.matches;
