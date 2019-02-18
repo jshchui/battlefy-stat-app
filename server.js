@@ -14,7 +14,6 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 app.get('/getMatchlist/:summonerName', (req, res) => {
   const summonerName = req.params.summonerName;
   fetchMatchlist(process.env.LEAGUE_API_KEY, summonerName).then(data => {
-    console.log('data: ', data);
     res.json(data);
   });
 });
@@ -22,7 +21,6 @@ app.get('/getMatchlist/:summonerName', (req, res) => {
 app.get('/getMatch/:matchId', (req, res) => {
   const matchId = req.params.matchId;
   fetchMatch(process.env.LEAGUE_API_KEY, matchId).then(data => {
-    console.log('matchIddata: ', data);
     res.json(data);
   });
 });
